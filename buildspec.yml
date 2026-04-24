@@ -5,9 +5,6 @@ env:
     # Default values (can be overridden in CodeBuild)
     BASE_URL: "https://toro288.ws.martiniserver.com/"
     PACKAGE_NAME_PATTERN: "^(new-package)$"
-  
-  secrets-manager:
-    MARTINI_ACCESS_TOKEN: MARTINI_ACCESS_TOKEN
 
 phases:
   pre_build:

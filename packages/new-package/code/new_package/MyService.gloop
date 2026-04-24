@@ -1,3 +1,21 @@
 {
-    "steps": []
+    "steps": [
+        {
+            "type": "invokeCode",
+            "className": "io.toro.martini.LoggerMethods",
+            "methodName": "println",
+            "parameters": [
+                "java.lang.String"
+            ],
+            "inputs": [
+                {
+                    "type": "set",
+                    "expression": "test",
+                    "to": [
+                        "message"
+                    ]
+                }
+            ]
+        }
+    ]
 }

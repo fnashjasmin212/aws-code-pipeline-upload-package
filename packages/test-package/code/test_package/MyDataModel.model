@@ -1,0 +1,9 @@
+{
+    "name": "MyDataModel",
+    "type": "model",
+    "gloopProperties": [
+        {
+            "name": "string"
+        }
+    ]
+}

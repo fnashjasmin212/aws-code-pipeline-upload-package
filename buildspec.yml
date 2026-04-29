@@ -1,0 +1,35 @@
+# ------------------------
+# Name: Deploy Martini Packages
+# Description: Upload Martini Packages using AWS Code Pipelines and CodeBuild
+# ------------------------
+version: 0.2
+env:
+  variables:
+    BASE_URL: https://toro288.ws.martiniserver.com/
+    PACKAGE_NAME_PATTERN: ^(new-package|test-package)$
+phases:
+  pre_build:
+    commands:
+      - |-
+        missing=0
+        for var in BASE_URL MARTINI_ACCESS_TOKEN; do
+          if [ -z "${!var}" ]; then
+            echo "ERROR: $var is missing"
+            missing=1
+          fi
+        done
+        if [ "$missing" = "1" ]; then exit 1; fi
+      - echo "Configuration:"
+      - echo "  BASE_URL=$BASE_URL"
+      - echo "  PACKAGE_NAME_PATTERN=$PACKAGE_NAME_PATTERN"
+  build:
+    commands:
+      - curl -L https://raw.githubusercontent.com/lontiplatform/martini-build-pipeline-aws/main/terraform/scripts/upload_packages.sh -o upload_packages.sh
+      - chmod +x upload_packages.sh
+      - bash upload_packages.sh
+artifacts:
+  files:
+    - '**/packages.zip'
+    - '**/response_body.log'
+    - '**/results.log'
+  discard-paths: true
